@@ -1,0 +1,11 @@
+dataset_path: "/home/elemento/Downloads/Saarthi/task_data/"
+log_path: "/home/elemento/Downloads/Saarthi/Assignment/Logs/"
+save_path: "/home/elemento/Downloads/Saarthi/Assignment/Saved/"
+test_path: "/home/elemento/Downloads/Saarthi/task_data/valid_data.csv"
+
+indices:
+  act_ind: 6
+  obj_ind: 20
+  loc_ind: 24
+batch_size: 16
+epochs: 10
