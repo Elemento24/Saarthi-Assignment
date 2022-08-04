@@ -84,12 +84,10 @@ pre_val = df_valid.drop("path", axis = 1)
 pre_val_to_encode = pre_val[["action", "object", "location"]]
 Y_val = enc.transform(pre_val_to_encode)
 Y_val = Y_val.toarray()
-print(Y_val.shape)
 
 # Vectorizing the Transcripts using Binary Bag of Words (BoW)
 X_val = vectorizer.transform(pre_val["transcription"])
 X_val = X_val.toarray()
-print(X_val.shape)
 
 
 ### DEFINING THE INDICES SEPARATING THE ACTION, OBJECT, LOCATION ###
@@ -239,7 +237,7 @@ preds_train = label_model.predict(X_train)
 preds_val = label_model.predict(X_val)
 
 train_f1 = MyF1Score(Y_train, preds_train)
-print(f"Training F1 Score: Action | Object | Location | Sum")
+print(f"\nTraining F1 Score: Action | Object | Location | Sum")
 print(f"                 : {train_f1[0]} | {train_f1[1]} | {train_f1[2]} | {train_f1[3]}")
 
 val_f1 = MyF1Score(Y_val, preds_val)

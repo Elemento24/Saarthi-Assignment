@@ -192,7 +192,7 @@ if is_file:
     preds_test = label_model.predict(X_test)
 
     test_f1 = MyF1Score(Y_test, preds_test)
-    print(f"/nTest F1 Score: Action | Object | Location | Sum")
+    print(f"\nTest F1 Score: Action | Object | Location | Sum")
     print(f"                 : {test_f1[0]} | {test_f1[1]} | {test_f1[2]} | {test_f1[3]}")
     
     
@@ -215,6 +215,6 @@ else:
     obj_pred_label = np.argmax(obj_pred, axis = 1)
     loc_pred_label = np.argmax(loc_pred, axis = 1)
     
-    print(f"/nAction: {enc.categories_[0][act_pred_label][0]}")
+    print(f"\nAction: {enc.categories_[0][act_pred_label][0]}")
     print(f"Object: {enc.categories_[1][obj_pred_label][0]}")
     print(f"Location: {enc.categories_[2][loc_pred_label][0]}")
