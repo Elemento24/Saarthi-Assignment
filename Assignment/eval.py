@@ -72,11 +72,6 @@ class MyAcc(tf.keras.metrics.Metric):
         self.acc = None
         
     def update_state(self, y_true, y_pred, sample_weight = None):
-        # Initialization
-        act_ind = 6
-        obj_ind = 20
-        loc_ind = 24
-        
         act_true = y_true[ : , :act_ind]
         obj_true = y_true[ : , act_ind:obj_ind]
         loc_true = y_true[ : , obj_ind:loc_ind]
@@ -196,7 +191,7 @@ if is_file:
     print(f"                 : {test_f1[0]} | {test_f1[1]} | {test_f1[2]} | {test_f1[3]}")
     
     
-### OUTPUT PREDICTIONS FOR A GIEVN STRING ###
+### OUTPUT PREDICTIONS FOR A GIVEN STRING ###
 else: 
     # Loading the Data
     df_test = [sample]
