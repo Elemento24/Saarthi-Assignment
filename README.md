@@ -4,16 +4,8 @@
 - **Name** - Vishesh Mittal
 - **Email** - mittalvishesh021@gmail.com
 
-<br>
-<hr>
-<br>
-
 ## Goal
 In the given task, the **goal is that with given text you need to extract all the labels** i.e., action that needs to be taken, action to be taken on which object, and location where that object is present.
-
-<br>
-<hr>
-<br>
 
 ## Steps to Run
 - Open the `config.yaml` file.
@@ -25,10 +17,6 @@ In the given task, the **goal is that with given text you need to extract all th
 - The next step is to train the model. Navigate into the directory that contains the `train.py` file and run the command `python3 train.py --config <path_of_config_file>` or `python train.py --config <path_of_config_file>`. Note that the path needs to be of the folder, not of the config file.
 - Once the `train.py` file has been run, a model will be trained on the `train_data.csv` file, followed by predictions on both `train_data.csv` and `valid_data.csv` files. Also, the relevant pre-processors and the model will be stored, and the suitable log files will be created.
 - The last step is to run the `eval.py` file to perform evaluation for a given test file (*i.e., to determine the F1-Score*), or to predict the action, object and location for a given string. More on this has been discussed in the section enititled **Performing Evaluation**.
-
-<br>
-<hr>
-<br>
 
 ## Example
 - Here's an example of my current file structure, and how to train the model, and perform inference with the help of the trained model.
@@ -49,10 +37,6 @@ In the given task, the **goal is that with given text you need to extract all th
 - All the paths including the `dataset_path`, `log_path`, and `save_path` have been set in accordance with the above file structure.
 - The only difference is that the `test_path` has been set to indicate the `valid_data.csv` file currently, and can be changed to indicate the test file.
 
-<br>
-<hr>
-<br>
-
 ## Exploration and Motivation for the Current Approach
 - The basic exploration performed for this dataset can be found in `Exploration.ipynb`. As mentioned in the question statement, the transcripts of the audio files can be considered to be as given, and hence, the audio files didn't perform any role in the entire **data analysis** and/or **data modeling**.
 - Although the **action, object and location** are given as textual form in the dataset, a simple analysis conducted for finding the number of unique values for each of the 3 entities gave the numbers as follows:
@@ -65,10 +49,6 @@ In the given task, the **goal is that with given text you need to extract all th
 - **Count Vectorizer** is used to transform the transcripts into **Binary Bag-of-Words (BoW)** based representation, each of which is 92-dimensional representation. This is because the count of 124 considers words like "English" and "English." different, i.e., it takes punctuation into account, whereas the sklearn's implementation Count Vectorizer removes all the punctuation. 
 - Followed by the pre-processing, a neural network is trained on the dataset of **92-dimensional vectors** to predict **24-dimensional labels** using a **custom loss function (based on categorical cross-entropy)**, a **custom metric (based on accuracy)** and **ADAM optimizer**. Details of the dataset organization, the custom functions and the model structure can be found in the following sections.
 
-<br>
-<hr>
-<br>
-
 ## Dataset Organization
 - The 92-dimensional Binary BoW based representations of the transcripts form the input for the neural network model.
 - For each sample, the 
@@ -78,10 +58,6 @@ In the given task, the **goal is that with given text you need to extract all th
 - These one-hot encoded representations are concatenated into a single 24-dimensional representation for each sample, which is used as the corresponding label for each sample. 
 - It is the **one-hot encoded** nature of the individual parts of the 24-dimensional label that mandated the need for a custom metric and a custom loss function, as discussed in the next section.
 
-<br>
-<hr>
-<br>
-
 ## Custom Loss Function & Custom Metric
 - The custom loss function is based on Tensorflow's implementation of [Categorical Cross-Entropy](https://www.tensorflow.org/api_docs/python/tf/keras/metrics/categorical_crossentropy), and can be found as `MyLoss` in the `train.py` file. 
 - It splits the 24-dimensional true and predicted labels into 6, 14 and 4 dimensional true and predicted labels, for action, object and location respectively. It calculates the **categorical cross-entropy** for each of the 3 different entities individually, and simply sums them up to return the final loss. 
@@ -90,10 +66,6 @@ In the given task, the **goal is that with given text you need to extract all th
 - Once again, they split the 24-dimensional true and predicted labels. As for `MyAcc`, a sample is classified as accurate only when all the 3 entities, action, object and location are predicted correctly for the particular sample. 
 - And as for `MyF1Score`, it is based on Scikit-Learn's implementation of [F1-Score](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html). It calculates the F1-Score individually for all the 3 entities, and simply averages them to give the final F1-Score. 
 - The model has been defined in accordance with these custom implementations of **Loss** and **Metrics**, as discussed in the next section.
-
-<br>
-<hr>
-<br>
 
 ## Model Structure
 - The model is a **custom multi-layer perceptron (MLP)**, with some shared architecture for the 3 entities, and 3 different branches, one for each of the 3 entities.
@@ -105,10 +77,6 @@ In the given task, the **goal is that with given text you need to extract all th
 <img src="./Arhitecture.png" alt="Trulli" style="width:100%">
 <figcaption align = "center"><b>Fig.1 - Model Architecture</b></figcaption>
 </figure>
-
-<br>
-<hr>
-<br>
 
 ## Performing Evaluation
 - There are 2 different ways in which the `eval.py` script can be used for evaluations:
@@ -124,16 +92,9 @@ In the given task, the **goal is that with given text you need to extract all th
 - The `test_path` in the `config.yaml` file is not used in this case, so, it can be safely ignored.
 - After that, run the command `python3 eval.py --text <path_of_config_file> <string_in_quotes>` or `python eval.py --text <path_of_config_file> <string_in_quotes>`. Note that the path needs to be of the folder containing the config file, not of the config file itself.
 
-<br>
-<hr>
-<br>
-
 ## Final Output Score
 - The trained model gives the **final loss (categorical cross-entropy)** in order of **10^-6**, with an **accuracy** of **100%** on both the training and validation sets.
 
-<br>
-<hr>
-<br>
 
 ## Multi-GPU Training
 - I don't have a GPU on my local system, hence, I never got the opportunity to work with a local GPU.
