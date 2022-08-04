@@ -34,6 +34,7 @@ In the given task, the **goal is that with given text you need to extract all th
     - `train_data.csv`
     - `valid_data.csv`
   - `README.md`
+  - `Architecture.png`
 - All the paths including the `dataset_path`, `log_path`, and `save_path` have been set in accordance with the above file structure.
 - The only difference is that the `test_path` has been set to indicate the `valid_data.csv` file currently, and can be changed to indicate the test file.
 
@@ -74,7 +75,7 @@ In the given task, the **goal is that with given text you need to extract all th
 - The rest of the minor intricacies (*if any*) can be found in `create_model` inside the `train.py` file.
 
 <figure>
-<img src="./Arhitecture.png" alt="Trulli" style="width:100%">
+<img src="./Architecture.png" alt="Trulli" style="width:100%">
 <figcaption align = "center"><b>Fig.1 - Model Architecture</b></figcaption>
 </figure>
 
